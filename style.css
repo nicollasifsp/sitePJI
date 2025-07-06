@@ -1,0 +1,135 @@
+/* Reset e base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #111;
+  color: #fdfdfd;
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Container usado em todas as páginas */
+.container {
+  background-color: #1a1a1a;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(255, 166, 0, 0.3);
+  width: 90%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+/* Título animado da tela inicial */
+h1 {
+  font-size: 2em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+}
+
+.palavraAnimada {
+  position: relative;
+  height: 2em; /* altura de uma linha */
+  overflow: hidden;
+  font-size: 1.6em;
+  line-height: 2em;
+  color: rgb(255, 166, 0);
+}
+
+.palavraAnimada .lista {
+  display: flex;
+  flex-direction: column;
+  animation: subirPalavra 8s infinite ease-in-out;
+}
+
+.lista span {
+  height: 2em;
+}
+
+@keyframes subirPalavra {
+  0%, 20%   { transform: translateY(0); }
+  25%, 45%  { transform: translateY(-2em); }
+  50%, 70%  { transform: translateY(-4em); }
+  75%, 95%  { transform: translateY(-6em); }
+  100%      { transform: translateY(0); }
+}
+
+/* Botões da tela inicial */
+.botoes {
+  display: flex;
+  gap: 20px;
+}
+
+/* Botões em geral */
+button {
+  background-color: rgb(255, 166, 0);
+  color: black;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: rgb(255, 200, 80);
+}
+
+/* Estilo de formulários (login e cadastro) */
+h2 {
+  text-align: center;
+  color: rgb(255, 166, 0);
+  margin-bottom: 10px;
+  font-size: 1.8em;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+}
+
+input {
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1em;
+  background-color: #333;
+  color: #fff;
+}
+
+input::placeholder {
+  color: #bbb;
+}
+
+/* Texto abaixo do botão */
+p {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 0.95em;
+}
+
+/* Links */
+a {
+  color: rgb(255, 166, 0);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+a:hover {
+  text-decoration: underline;
+}
