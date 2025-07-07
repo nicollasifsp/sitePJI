@@ -9,7 +9,7 @@
 <body>
   <div class="container">
     <h2>Cadastro</h2>
-    <form>
+    <form id="formCadastro">
       <input type="text" placeholder="Nome completo" required>
       <input type="email" placeholder="Email" required>
       <input type="password" placeholder="Senha" required>
@@ -18,5 +18,16 @@
       <p>Já tem conta? <a href="login.html">Faça login</a></p>
     </form>
   </div>
+
+  <script>
+    document.getElementById("formCadastro").addEventListener("submit", function(e) {
+      e.preventDefault(); // Impede o envio real do formulário
+
+      // Aqui você pode adicionar validação de senha, salvar dados, etc.
+
+      // Redireciona para a página terapia.html
+      window.location.href = "terapia.html";
+    });
+  </script>
 </body>
 </html>

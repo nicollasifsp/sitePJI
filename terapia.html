@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sentiment IA - Terapia</title>
+  <style>
+    /* Reset e base */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #111;
+      color: #fdfdfd;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background-color: #1a1a1a;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(255, 166, 0, 0.3);
+      width: 90%;
+      max-width: 500px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    h2 {
+      text-align: center;
+      color: rgb(255, 166, 0);
+      font-size: 1.8em;
+    }
+
+    textarea {
+      width: 100%;
+      padding: 1rem;
+      border-radius: 10px;
+      font-size: 1rem;
+      border: none;
+      resize: none;
+      background-color: #333;
+      color: #fff;
+    }
+
+    textarea::placeholder {
+      color: #bbb;
+    }
+
+    button {
+      background-color: rgb(255, 166, 0);
+      color: black;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: rgb(255, 200, 80);
+    }
+
+    #publicacoes ul {
+      list-style: none;
+      padding: 0;
+      margin-top: 1rem;
+      width: 100%;
+    }
+
+    #publicacoes li {
+      background-color: #2a2a2a;
+      color: #fff;
+      padding: 1rem;
+      border-radius: 10px;
+      margin-bottom: 1rem;
+      box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+      position: relative;
+    }
+
+    .remover-postagem {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      border: none;
+      background: none;
+      font-size: 1.2rem;
+      color: #ff5c5c;
+      cursor: pointer;
+    }
+
+    span {
+      color: rgb(255, 166, 0);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Converse com a IA sobre seus sentimentos</h2>
+    <textarea id="texto" placeholder="Digite como você se sente..." rows="4"></textarea>
+    <button id="EnviarTerapeuta">Enviar</button>
+    <div id="publicacoes">
+      <ul id="lista-postagens"></ul>
+    </div>
+  </div>
+
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const campoTexto = document.getElementById("texto");
+    const botao = document.getElementById("EnviarTerapeuta");
+    const ul = document.getElementById("lista-postagens");
+
+    const palavrasPositivas = ["feliz", "bom", "ótimo", "maravilhoso", "alegre", "positivo", "gostei", "excelente"];
+    const palavrasNegativas = ["triste", "ruim", "horrível", "péssimo", "chato", "cansado", "negativo", "ódio"];
+
+    const historico = JSON.parse(localStorage.getItem("postagens")) || [];
+    historico.forEach(item => criarPostagem(item.id, item.texto, item.sentimento));
+
+    botao.addEventListener("click", () => {
+      const textoOriginal = campoTexto.value.trim();
+      const texto = textoOriginal.toLowerCase();
+
+      if (texto === "") {
+        alert("Digite algo antes de postar.");
+        return;
+      }
+
+      // Conta ocorrências reais
+      let score = 0;
+      palavrasPositivas.forEach(palavra => {
+        if (texto.includes(palavra)) score++;
+      });
+
+      palavrasNegativas.forEach(palavra => {
+        if (texto.includes(palavra)) score--;
+      });
+
+      let sentimento = "Neutro ⚪";
+      if (score > 0) sentimento = "Positivo 🟢";
+      else if (score < 0) sentimento = "Negativo 🔴";
+
+      const id = Date.now();
+      criarPostagem(id, textoOriginal, sentimento);
+
+      historico.push({ id, texto: textoOriginal, sentimento });
+      localStorage.setItem("postagens", JSON.stringify(historico));
+
+      campoTexto.value = "";
+    });
+
+    function criarPostagem(id, texto, sentimento) {
+      const postagem = document.createElement("li");
+
+      const textoMensagem = document.createElement("p");
+      textoMensagem.textContent = texto;
+
+      const resultado = document.createElement("span");
+      resultado.textContent = `Sentimento: ${sentimento}`;
+      resultado.style.display = "block";
+      resultado.style.marginTop = "0.5rem";
+      resultado.style.fontWeight = "bold";
+
+      const botaoRemover = document.createElement("button");
+      botaoRemover.innerText = "🗑";
+      botaoRemover.classList.add("remover-postagem");
+      botaoRemover.addEventListener("click", () => {
+        ul.removeChild(postagem);
+        const novoHistorico = JSON.parse(localStorage.getItem("postagens"))
+          .filter(p => p.id !== id);
+        localStorage.setItem("postagens", JSON.stringify(novoHistorico));
+      });
+
+      postagem.appendChild(textoMensagem);
+      postagem.appendChild(resultado);
+      postagem.appendChild(botaoRemover);
+      ul.appendChild(postagem);
+    }
+  });
+</script>
+
+</body>
+</html>

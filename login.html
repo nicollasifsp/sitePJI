@@ -9,12 +9,20 @@
 <body>
   <div class="container">
     <h2>Login</h2>
-    <form>
+    <form id="formLogin">
       <input type="email" placeholder="Email" required>
       <input type="password" placeholder="Senha" required>
-      <button type="submit">Entrar</button>
+      <button type="submit" id="btnLogin">Login</button>
+
       <p>Não tem conta? <a href="cadastro.html">Cadastre-se</a></p>
     </form>
   </div>
+
+  <script>
+    document.getElementById("formLogin").addEventListener("submit", function (e) {
+      e.preventDefault();
+      window.location.href = "terapia.html";
+    });
+  </script>
 </body>
 </html>
