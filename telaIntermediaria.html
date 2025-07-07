@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Menu Principal</title>
+  <style>
+    /* Reset básico */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #111;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      background-color: #1a1a1a;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(255, 166, 0, 0.3);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
+      width: 90%;
+      max-width: 400px;
+    }
+
+    h1 {
+      color: rgb(255, 166, 0);
+      font-size: 2em;
+      text-align: center;
+    }
+
+    .botoes {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      width: 100%;
+    }
+
+    button {
+      background-color: rgb(255, 166, 0);
+      color: #000;
+      border: none;
+      padding: 14px;
+      border-radius: 8px;
+      font-size: 1em;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s;
+      width: 100%;
+    }
+
+    button:hover {
+      background-color: rgb(255, 200, 80);
+      transform: scale(1.03);
+    }
+
+    @media (min-width: 600px) {
+      .botoes {
+        flex-direction: row;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      button {
+        width: auto;
+        min-width: 150px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Menu Principal</h1>
+    <div class="botoes">
+      <button onclick="location.href='terapia.html'">Análise de Sentimento</button>
+      <button onclick="location.href='historico.html'">Histórico</button>
+    </div>
+  </div>
+</body>
+</html>
